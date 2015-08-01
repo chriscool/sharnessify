@@ -7,6 +7,7 @@
 
 SHARNESS_URL="https://github.com/mlafeldt/sharness.git"
 LIB_DIR="lib"
+SHARNESS_BASE_DIR="sharness"
 
 USAGE="$0 [-v] [<directory>]"
 
@@ -50,7 +51,7 @@ done
 test -n "$PROJ_DIR" || PROJ_DIR="."
 
 # Create a sharness directories
-SHARNESS_DIR="$PROJ_DIR/sharness"
+SHARNESS_DIR="$PROJ_DIR/$SHARNESS_BASE_DIR"
 SHARNESS_LIB_DIR="$SHARNESS_DIR/$LIB_DIR"
 mkdir -p "$SHARNESS_LIB_DIR" ||
 die "could not create '$SHARNESS_LIB_DIR' directory"
@@ -93,7 +94,7 @@ die "could not modify '$INSTALL_SCRIPT'"
 rm -rf "$TMPDIR"
 
 # Add .gitignore
-echo "$LIB_DIR/sharness/" >"$SHARNESS_DIR/.gitignore"
+echo "$LIB_DIR/$SHARNESS_BASE_DIR/" >"$SHARNESS_DIR/.gitignore"
 echo "test-results/" >>"$SHARNESS_DIR/.gitignore"
 echo "trash directory.*.sh/" >>"$SHARNESS_DIR/.gitignore"
 
