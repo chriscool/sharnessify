@@ -9,11 +9,15 @@ SHARNESS_URL="https://github.com/mlafeldt/sharness.git"
 LIB_BASE_DIR="lib"
 SHARNESS_BASE_DIR="sharness"
 
-USAGE="$0 [-v] [-l <local>] [<directory>]"
+USAGE="$0 [-h] [-v] [-l <local>] [<directory>]"
 
 usage() {
     echo "$USAGE"
-    echo "Add sharness infrastructure to a project"
+    echo "	Add sharness infrastructure to a project"
+    echo "	Options:"
+    echo "		-h|--help: print this usage message and exit"
+    echo "		-v|--verbose: print logs of what happens"
+    echo "		-l|--local: use local Sharness repo to clone from"
     exit 0
 }
 
