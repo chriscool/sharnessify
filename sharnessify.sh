@@ -91,3 +91,9 @@ die "could not modify '$INSTALL_SCRIPT'"
 
 # Cleanup temp directory
 rm -rf "$TMPDIR"
+
+# Add .gitignore
+echo "$LIB_DIR/sharness/" >"$SHARNESS_DIR/.gitignore"
+echo "test-results/" >>"$SHARNESS_DIR/.gitignore"
+echo "trash directory.*.sh/" >>"$SHARNESS_DIR/.gitignore"
+
