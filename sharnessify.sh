@@ -48,7 +48,7 @@ while [ "$#" -gt "0" ]; do
 	    test -n "$SHARNESS_URL" || die "invalid Sharness URL '$SHARNESS_URL'"
 	    log "SHARNESS_URL is now set to '$SHARNESS_URL'"
 	    ;;
-	--*)
+	-*)
 	    die "unrecognised option: '$arg'\n$USAGE" ;;
 	*)
 	    test -z "$PROJ_DIR" || die "too many arguments\n$USAGE"
