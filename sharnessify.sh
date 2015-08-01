@@ -6,7 +6,7 @@
 # Script to add sharness infrastructure to a project
 
 SHARNESS_URL="https://github.com/mlafeldt/sharness.git"
-LIB_DIR="lib"
+LIB_BASE_DIR="lib"
 SHARNESS_BASE_DIR="sharness"
 
 USAGE="$0 [-v] [<directory>]"
@@ -52,7 +52,7 @@ test -n "$PROJ_DIR" || PROJ_DIR="."
 
 # Create a sharness directories
 SHARNESS_DIR="$PROJ_DIR/$SHARNESS_BASE_DIR"
-SHARNESS_LIB_DIR="$SHARNESS_DIR/$LIB_DIR"
+SHARNESS_LIB_DIR="$SHARNESS_DIR/$LIB_BASE_DIR"
 mkdir -p "$SHARNESS_LIB_DIR" ||
 die "could not create '$SHARNESS_LIB_DIR' directory"
 
@@ -85,7 +85,7 @@ sed -i "s/XXX_SHARNESSIFY_VERSION_XXX/$SHARNESS_VERSION/" "$INSTALL_SCRIPT" ||
 die "could not modify '$INSTALL_SCRIPT'"
 sed -i "s/XXX_SHARNESSIFY_URL_XXX/$ESCAPED_URL/" "$INSTALL_SCRIPT" ||
 die "could not modify '$INSTALL_SCRIPT'"
-sed -i "s/XXX_SHARNESSIFY_LIB_XXX/$LIB_DIR/" "$INSTALL_SCRIPT" ||
+sed -i "s/XXX_SHARNESSIFY_LIB_XXX/$LIB_BASE_DIR/" "$INSTALL_SCRIPT" ||
 die "could not modify '$INSTALL_SCRIPT'"
 sed -i "s/XXX_SHARNESSIFY_SHARNESS_XXX/sharness/" "$INSTALL_SCRIPT" ||
 die "could not modify '$INSTALL_SCRIPT'"
@@ -94,7 +94,7 @@ die "could not modify '$INSTALL_SCRIPT'"
 rm -rf "$TMPDIR"
 
 # Add .gitignore
-echo "$LIB_DIR/$SHARNESS_BASE_DIR/" >"$SHARNESS_DIR/.gitignore"
+echo "$LIB_BASE_DIR/$SHARNESS_BASE_DIR/" >"$SHARNESS_DIR/.gitignore"
 echo "test-results/" >>"$SHARNESS_DIR/.gitignore"
 echo "trash directory.*.sh/" >>"$SHARNESS_DIR/.gitignore"
 
