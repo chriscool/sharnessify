@@ -9,7 +9,7 @@ SHARNESS_URL="https://github.com/mlafeldt/sharness.git"
 LIB_BASE_DIR="lib"
 SHARNESS_BASE_DIR="sharness"
 
-USAGE="$0 [-v] [<directory>]"
+USAGE="$0 [-v] [-l <local>] [<directory>]"
 
 usage() {
     echo "$USAGE"
@@ -42,6 +42,12 @@ while [ "$#" -gt "0" ]; do
 	    usage ;;
 	-v|--verbose)
 	    VERBOSE=1 ;;
+	-l|--local)
+	    SHARNESS_URL="$(cd "$1" && pwd)" || die "could not cd into '$1'"
+	    shift
+	    test -n "$SHARNESS_URL" || die "invalid Sharness URL '$SHARNESS_URL'"
+	    log "SHARNESS_URL is now set to '$SHARNESS_URL'"
+	    ;;
 	--*)
 	    die "unrecognised option: '$arg'\n$USAGE" ;;
 	*)
