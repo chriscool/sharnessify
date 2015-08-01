@@ -22,6 +22,10 @@ die() {
     exit 1
 }
 
+log() {
+    test -z "$VERBOSE" || echo "$@"
+}
+
 PROJ_DIR=""
 VERBOSE=""
 
@@ -49,22 +53,26 @@ done
 
 # Setup PROJ_DIR properly
 test -n "$PROJ_DIR" || PROJ_DIR="."
+log "PROJ_DIR is set to '$PROJ_DIR'"
 
-# Create a sharness directories
+# Create sharness directories
 SHARNESS_DIR="$PROJ_DIR/$SHARNESS_BASE_DIR"
 SHARNESS_LIB_DIR="$SHARNESS_DIR/$LIB_BASE_DIR"
 mkdir -p "$SHARNESS_LIB_DIR" ||
 die "could not create '$SHARNESS_LIB_DIR' directory"
+log "SHARNESS_LIB_DIR ($SHARNESS_LIB_DIR) is ready"
 
 # Copy sharness install script
 cp "$CUR_DIR/install-sharness.sh" "$SHARNESS_LIB_DIR/" ||
 die "could not copy '$CUR_DIR/install-sharness.sh' into '$SHARNESS_LIB_DIR/'"
 INSTALL_SCRIPT="$SHARNESS_LIB_DIR/install-sharness.sh"
+log "INSTALL_SCRIPT ($INSTALL_SCRIPT) is set to '$SHARNESS_LIB_DIR'"
 
 # Create temp directory
 DATE=$(date +"%Y-%m-%dT%H:%M:%SZ")
 TMPDIR=$(mktemp -d "/tmp/sharnessify.$DATE.XXXXXX") ||
 die "could not 'mktemp -d /tmp/sharnessify.$DATE.XXXXXX'"
+log "TMPDIR ($TMPDIR) created"
 
 # Clone Sharness
 (
@@ -72,11 +80,13 @@ die "could not 'mktemp -d /tmp/sharnessify.$DATE.XXXXXX'"
     git clone "$SHARNESS_URL" ||
     die "could not clone from '$SHARNESS_URL'"
 ) || exit
+log "Sharness cloned from '$SHARNESS_URL'"
 
 # Get Sharness version
 SHARNESS_VERSION=$(cd "$TMPDIR/sharness" && git rev-parse HEAD)
 test -n "$SHARNESS_VERSION" ||
 die "could not get Sharness version from repo in '$TMPDIR/sharness'"
+log "SHARNESS_VERSION is set to '$SHARNESS_VERSION'"
 
 ESCAPED_URL=$(echo "$SHARNESS_URL" | sed -e 's/[\/&]/\\&/g')
 
@@ -89,6 +99,7 @@ sed -i "s/XXX_SHARNESSIFY_LIB_XXX/$LIB_BASE_DIR/" "$INSTALL_SCRIPT" ||
 die "could not modify '$INSTALL_SCRIPT'"
 sed -i "s/XXX_SHARNESSIFY_SHARNESS_XXX/sharness/" "$INSTALL_SCRIPT" ||
 die "could not modify '$INSTALL_SCRIPT'"
+log "Variables substituted in '$INSTALL_SCRIPT'"
 
 # Cleanup temp directory
 rm -rf "$TMPDIR"
@@ -97,4 +108,5 @@ rm -rf "$TMPDIR"
 echo "$LIB_BASE_DIR/$SHARNESS_BASE_DIR/" >"$SHARNESS_DIR/.gitignore"
 echo "test-results/" >>"$SHARNESS_DIR/.gitignore"
 echo "trash directory.*.sh/" >>"$SHARNESS_DIR/.gitignore"
+log "'$SHARNESS_DIR/.gitignore' created"
 
