@@ -120,3 +120,9 @@ echo "test-results/" >>"$SHARNESS_DIR/.gitignore"
 echo "trash directory.*.sh/" >>"$SHARNESS_DIR/.gitignore"
 log "'$SHARNESS_DIR/.gitignore' created"
 
+# Run install script
+(
+    cd "$SHARNESS_DIR"  || die "could not cd into '$SHARNESS_DIR'"
+    "$LIB_BASE_DIR/install-sharness.sh" || die "installation script '$INSTALL_SCRIPT' failed"
+) || exit
+log "INSTALL_SCRIPT ($INSTALL_SCRIPT) run"
