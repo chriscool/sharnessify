@@ -111,9 +111,6 @@ sed -i "s/XXX_SHARNESSIFY_SHARNESS_XXX/sharness/" "$INSTALL_SCRIPT" ||
 die "could not modify '$INSTALL_SCRIPT'"
 log "Variables substituted in '$INSTALL_SCRIPT'"
 
-# Cleanup temp directory
-rm -rf "$TMPDIR"
-
 # Add .gitignore
 echo "$LIB_BASE_DIR/$SHARNESS_BASE_DIR/" >"$SHARNESS_DIR/.gitignore"
 echo "test-results/" >>"$SHARNESS_DIR/.gitignore"
@@ -126,3 +123,13 @@ log "'$SHARNESS_DIR/.gitignore' created"
     "$LIB_BASE_DIR/install-sharness.sh" || die "installation script '$INSTALL_SCRIPT' failed"
 ) || exit
 log "INSTALL_SCRIPT ($INSTALL_SCRIPT) run"
+
+# Copy a simple test into the test directory
+SIMPLE_TEST_ORIG="$TMPDIR/sharness/test/simple.t"
+SIMPLE_TEST_DEST="$SHARNESS_DIR/t0000-sharness.sh"
+cp "$SIMPLE_TEST_ORIG" "$SIMPLE_TEST_DEST" ||
+die "could not copy '$SIMPLE_TEST_ORIG' to '$SIMPLE_TEST_DEST'"
+log "Simple test ($SIMPLE_TEST_DEST) created"
+
+# Cleanup temp directory
+rm -rf "$TMPDIR"
