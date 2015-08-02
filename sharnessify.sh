@@ -76,7 +76,7 @@ log "SHARNESS_LIB_DIR ($SHARNESS_LIB_DIR) is ready"
 cp "$CUR_DIR/install-sharness.sh" "$SHARNESS_LIB_DIR/" ||
 die "could not copy '$CUR_DIR/install-sharness.sh' into '$SHARNESS_LIB_DIR/'"
 INSTALL_SCRIPT="$SHARNESS_LIB_DIR/install-sharness.sh"
-log "INSTALL_SCRIPT ($INSTALL_SCRIPT) is set to '$SHARNESS_LIB_DIR'"
+log "INSTALL_SCRIPT ($INSTALL_SCRIPT) has been copied from '$CUR_DIR'"
 
 # Create temp directory
 DATE=$(date +"%Y-%m-%dT%H:%M:%SZ")
