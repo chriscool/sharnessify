@@ -27,7 +27,7 @@ die() {
 }
 
 log() {
-    test -z "$VERBOSE" || echo "$@"
+    test -z "$VERBOSE" || echo "->" "$@"
 }
 
 PROJ_DIR=""
