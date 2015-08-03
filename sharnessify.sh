@@ -98,9 +98,8 @@ test -n "$SHARNESS_VERSION" ||
 die "could not get Sharness version from repo in '$TMPDIR/sharness'"
 log "SHARNESS_VERSION is set to '$SHARNESS_VERSION'"
 
-ESCAPED_URL=$(echo "$SHARNESS_URL" | sed -e 's/[\/&]/\\&/g')
-
 # Substitute variables in install script
+ESCAPED_URL=$(echo "$SHARNESS_URL" | sed -e 's/[\/&]/\\&/g')
 sed -i "s/XXX_SHARNESSIFY_VERSION_XXX/$SHARNESS_VERSION/" "$INSTALL_SCRIPT" ||
 die "could not modify '$INSTALL_SCRIPT'"
 sed -i "s/XXX_SHARNESSIFY_URL_XXX/$ESCAPED_URL/" "$INSTALL_SCRIPT" ||
@@ -127,8 +126,12 @@ log "INSTALL_SCRIPT ($INSTALL_SCRIPT) run"
 # Copy a simple test into the test directory
 SIMPLE_TEST_ORIG="$TMPDIR/sharness/test/simple.t"
 SIMPLE_TEST_DEST="$SHARNESS_DIR/t0000-sharness.sh"
+SHARNESS_TEST_LIB="$LIB_BASE_DIR/$SHARNESS_BASE_DIR/sharness.sh"
+ESCAPED_TEST_LIB=$(echo "$SHARNESS_TEST_LIB" | sed -e 's/[\/&]/\\&/g')
 cp "$SIMPLE_TEST_ORIG" "$SIMPLE_TEST_DEST" ||
 die "could not copy '$SIMPLE_TEST_ORIG' to '$SIMPLE_TEST_DEST'"
+sed -i "s/. .\/sharness.sh/. .\/$ESCAPED_TEST_LIB/" "$SIMPLE_TEST_DEST" ||
+die "could not modify '$SIMPLE_TEST_DEST'"
 log "Simple test ($SIMPLE_TEST_DEST) created"
 
 # Cleanup temp directory
