@@ -73,12 +73,12 @@ die "could not create '$SHARNESS_LIB_DIR' directory"
 log "SHARNESS_LIB_DIR ($SHARNESS_LIB_DIR) is ready"
 
 # Copy sharness install script
-SCRIPT_NAME="install-sharness.sh"
+INSTALL_NAME="install-sharness.sh"
 TEMPLATE_DIR="$CUR_DIR/templates"
-TEMPLATE_SCRIPT="$TEMPLATE_DIR/$SCRIPT_NAME"
+TEMPLATE_SCRIPT="$TEMPLATE_DIR/$INSTALL_NAME"
 cp "$TEMPLATE_SCRIPT" "$SHARNESS_LIB_DIR/" ||
 die "could not copy '$TEMPLATE_SCRIPT' into '$SHARNESS_LIB_DIR/'"
-INSTALL_SCRIPT="$SHARNESS_LIB_DIR/$SCRIPT_NAME"
+INSTALL_SCRIPT="$SHARNESS_LIB_DIR/$INSTALL_NAME"
 log "INSTALL_SCRIPT ($INSTALL_SCRIPT) has been copied from '$TEMPLATE_DIR'"
 
 # Create temp directory
@@ -122,7 +122,7 @@ log "'$SHARNESS_DIR/.gitignore' created"
 # Run install script
 (
     cd "$SHARNESS_DIR"  || die "could not cd into '$SHARNESS_DIR'"
-    "$LIB_BASE_DIR/$SCRIPT_NAME" || die "installation script '$INSTALL_SCRIPT' failed"
+    "$LIB_BASE_DIR/$INSTALL_NAME" || die "installation script '$INSTALL_SCRIPT' failed"
 ) || exit
 log "INSTALL_SCRIPT ($INSTALL_SCRIPT) run"
 
