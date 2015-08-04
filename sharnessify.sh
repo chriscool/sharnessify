@@ -119,10 +119,11 @@ die "could not modify '$INSTALL_SCRIPT'"
 log "Variables substituted in '$INSTALL_SCRIPT'"
 
 # Add .gitignore
-echo "$LIB_BASE_DIR/$SHARNESS_BASE_DIR/" >"$SHARNESS_DIR/.gitignore"
-echo "test-results/" >>"$SHARNESS_DIR/.gitignore"
-echo "trash directory.*.sh/" >>"$SHARNESS_DIR/.gitignore"
-log "'$SHARNESS_DIR/.gitignore' created"
+GIT_IGNORE="$SHARNESS_DIR/.gitignore"
+echo "$LIB_BASE_DIR/$SHARNESS_BASE_DIR/" >"$GIT_IGNORE"
+echo "test-results/" >>"$GIT_IGNORE"
+echo "trash directory.*.sh/" >>"$GIT_IGNORE"
+log "'$GIT_IGNORE' created"
 
 # Run install script
 (
