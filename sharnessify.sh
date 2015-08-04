@@ -129,7 +129,7 @@ log "'$SHARNESS_DIR/.gitignore' created"
     cd "$SHARNESS_DIR"  || die "could not cd into '$SHARNESS_DIR'"
     "$LIB_BASE_DIR/$INSTALL_NAME" || die "installation script '$INSTALL_SCRIPT' failed"
 ) || exit
-log "INSTALL_SCRIPT ($INSTALL_SCRIPT) run"
+log "INSTALL_SCRIPT ($INSTALL_SCRIPT) ran in '$SHARNESS_DIR'"
 
 # Copy a simple test into the test directory
 SIMPLE_TEST_ORIG="$TMPDIR/sharness/test/simple.t"
@@ -141,6 +141,9 @@ die "could not copy '$SIMPLE_TEST_ORIG' to '$SIMPLE_TEST_DEST'"
 sed -i "s/. .\/sharness.sh/. .\/$ESCAPED_TEST_LIB/" "$SIMPLE_TEST_DEST" ||
 die "could not modify '$SIMPLE_TEST_DEST'"
 log "Simple test ($SIMPLE_TEST_DEST) created"
+
+# Cleanup temp directory
+rm -rf "$TMPDIR"
 
 # Copy Makefile
 cp "$TEMPLATE_MAKEFILE" "$SHARNESS_DIR/" ||
@@ -155,5 +158,9 @@ sed -i "s/XXX_SHARNESSIFY_SHARNESS_XXX/sharness/" "$MAKEFILE_SCRIPT" ||
 die "could not modify '$MAKEFILE_SCRIPT'"
 log "Variables substituted in '$MAKEFILE_SCRIPT'"
 
-# Cleanup temp directory
-rm -rf "$TMPDIR"
+# Run make to verify that everything works
+(
+    cd "$SHARNESS_DIR"  || die "could not cd into '$SHARNESS_DIR'"
+    make || die "make failed in '$SHARNESS_DIR'"
+) || exit
+log "'make' ran in '$SHARNESS_DIR'"
