@@ -34,13 +34,14 @@ PROJ_DIR=""
 VERBOSE=""
 
 # Get the directory that contains this script
-CUR_DIR=$(cd "$(dirname "$0")" && pwd) ||
-die "could not get script directory from '$0'"
-TEMPLATE_DIR="$CUR_DIR/templates"
+PARENT_DIR=$(cd "$(dirname "$0")" && pwd) ||
+die "could not get script parent directory from '$0'"
+TEMPLATE_DIR="$PARENT_DIR/templates"
 INSTALL_NAME="install-sharness.sh"
 MAKEFILE_NAME="Makefile"
 TEMPLATE_INSTALL="$TEMPLATE_DIR/$INSTALL_NAME"
 TEMPLATE_MAKEFILE="$TEMPLATE_DIR/$MAKEFILE_NAME"
+log "This script's parent directory is '$PARENT_DIR'"
 
 # get user options
 while [ "$#" -gt "0" ]; do
