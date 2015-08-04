@@ -165,3 +165,17 @@ log "Variables substituted in '$MAKEFILE_SCRIPT'"
     make || die "make failed in '$SHARNESS_DIR'"
 ) || exit
 log "'make' ran in '$SHARNESS_DIR'"
+
+# Add everything into Git
+git add "$GIT_IGNORE" "$MAKEFILE_SCRIPT" "$INSTALL_SCRIPT" "$SIMPLE_TEST_DEST" ||
+die "could not add Sharness support files into Git"
+log "'git add'ed Sharness support files"
+
+echo "**************"
+echo "* SUCCESS!!! *"
+echo "**************"
+echo
+echo "You can now commit the generated support files into Git using for example:"
+echo
+echo "  git commit -m 'Add Sharness support files'"
+echo
