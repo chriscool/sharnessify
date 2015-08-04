@@ -8,6 +8,8 @@
 SHARNESS_URL="https://github.com/mlafeldt/sharness.git"
 LIB_BASE_DIR="lib"
 SHARNESS_BASE_DIR="sharness"
+INSTALL_NAME="install-sharness.sh"
+MAKEFILE_NAME="Makefile"
 
 USAGE="$0 [-h] [-v] [-l <local>] [<directory>]"
 
@@ -32,16 +34,6 @@ log() {
 
 PROJ_DIR=""
 VERBOSE=""
-
-# Get the directory that contains this script
-PARENT_DIR=$(cd "$(dirname "$0")" && pwd) ||
-die "could not get script parent directory from '$0'"
-TEMPLATE_DIR="$PARENT_DIR/templates"
-INSTALL_NAME="install-sharness.sh"
-MAKEFILE_NAME="Makefile"
-TEMPLATE_INSTALL="$TEMPLATE_DIR/$INSTALL_NAME"
-TEMPLATE_MAKEFILE="$TEMPLATE_DIR/$MAKEFILE_NAME"
-log "This script's parent directory is '$PARENT_DIR'"
 
 # get user options
 while [ "$#" -gt "0" ]; do
@@ -72,6 +64,14 @@ done
 # Setup PROJ_DIR properly
 test -n "$PROJ_DIR" || PROJ_DIR="."
 log "PROJ_DIR is set to '$PROJ_DIR'"
+
+# Get the directory that contains this script
+PARENT_DIR=$(cd "$(dirname "$0")" && pwd) ||
+die "could not get script parent directory from '$0'"
+TEMPLATE_DIR="$PARENT_DIR/templates"
+TEMPLATE_INSTALL="$TEMPLATE_DIR/$INSTALL_NAME"
+TEMPLATE_MAKEFILE="$TEMPLATE_DIR/$MAKEFILE_NAME"
+log "This script's parent directory is '$PARENT_DIR'"
 
 # Create sharness directories
 SHARNESS_DIR="$PROJ_DIR/$SHARNESS_BASE_DIR"
