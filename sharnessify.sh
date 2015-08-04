@@ -74,11 +74,12 @@ log "SHARNESS_LIB_DIR ($SHARNESS_LIB_DIR) is ready"
 
 # Copy sharness install script
 SCRIPT_NAME="install-sharness.sh"
-TEMPLATE_SCRIPT="$CUR_DIR/templates/$SCRIPT_NAME"
+TEMPLATE_DIR="$CUR_DIR/templates"
+TEMPLATE_SCRIPT="$TEMPLATE_DIR/$SCRIPT_NAME"
 cp "$TEMPLATE_SCRIPT" "$SHARNESS_LIB_DIR/" ||
 die "could not copy '$TEMPLATE_SCRIPT' into '$SHARNESS_LIB_DIR/'"
 INSTALL_SCRIPT="$SHARNESS_LIB_DIR/$SCRIPT_NAME"
-log "INSTALL_SCRIPT ($INSTALL_SCRIPT) has been copied from '$CUR_DIR'"
+log "INSTALL_SCRIPT ($INSTALL_SCRIPT) has been copied from '$TEMPLATE_DIR'"
 
 # Create temp directory
 DATE=$(date +"%Y-%m-%dT%H:%M:%SZ")
@@ -135,6 +136,17 @@ die "could not copy '$SIMPLE_TEST_ORIG' to '$SIMPLE_TEST_DEST'"
 sed -i "s/. .\/sharness.sh/. .\/$ESCAPED_TEST_LIB/" "$SIMPLE_TEST_DEST" ||
 die "could not modify '$SIMPLE_TEST_DEST'"
 log "Simple test ($SIMPLE_TEST_DEST) created"
+
+# Copy Makefile
+MAKEFILE_NAME="Makefile"
+TEMPLATE_MAKEFILE="$TEMPLATE_DIR/$MAKEFILE_NAME"
+cp "$TEMPLATE_MAKEFILE" "$SHARNESS_LIB_DIR/" ||
+die "could not copy '$TEMPLATE_MAKEFILE' into '$SHARNESS_LIB_DIR/'"
+MAKEFILE_SCRIPT="$SHARNESS_LIB_DIR/$MAKEFILE_NAME"
+log "MAKEFILE_SCRIPT ($MAKEFILE_SCRIPT) has been copied from '$TEMPLATE_DIR'"
+
+
+
 
 # Cleanup temp directory
 rm -rf "$TMPDIR"
