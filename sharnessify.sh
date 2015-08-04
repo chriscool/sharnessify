@@ -33,7 +33,14 @@ log() {
 PROJ_DIR=""
 VERBOSE=""
 
-CUR_DIR=$(cd "$(dirname "$0")" && pwd)
+# Get the directory that contains this script
+CUR_DIR=$(cd "$(dirname "$0")" && pwd) ||
+die "could not get script directory from '$0'"
+TEMPLATE_DIR="$CUR_DIR/templates"
+INSTALL_NAME="install-sharness.sh"
+MAKEFILE_NAME="Makefile"
+TEMPLATE_INSTALL="$TEMPLATE_DIR/$INSTALL_NAME"
+TEMPLATE_MAKEFILE="$TEMPLATE_DIR/$MAKEFILE_NAME"
 
 # get user options
 while [ "$#" -gt "0" ]; do
@@ -73,11 +80,8 @@ die "could not create '$SHARNESS_LIB_DIR' directory"
 log "SHARNESS_LIB_DIR ($SHARNESS_LIB_DIR) is ready"
 
 # Copy sharness install script
-INSTALL_NAME="install-sharness.sh"
-TEMPLATE_DIR="$CUR_DIR/templates"
-TEMPLATE_SCRIPT="$TEMPLATE_DIR/$INSTALL_NAME"
-cp "$TEMPLATE_SCRIPT" "$SHARNESS_LIB_DIR/" ||
-die "could not copy '$TEMPLATE_SCRIPT' into '$SHARNESS_LIB_DIR/'"
+cp "$TEMPLATE_INSTALL" "$SHARNESS_LIB_DIR/" ||
+die "could not copy '$TEMPLATE_INSTALL' into '$SHARNESS_LIB_DIR/'"
 INSTALL_SCRIPT="$SHARNESS_LIB_DIR/$INSTALL_NAME"
 log "INSTALL_SCRIPT ($INSTALL_SCRIPT) has been copied from '$TEMPLATE_DIR'"
 
@@ -138,8 +142,6 @@ die "could not modify '$SIMPLE_TEST_DEST'"
 log "Simple test ($SIMPLE_TEST_DEST) created"
 
 # Copy Makefile
-MAKEFILE_NAME="Makefile"
-TEMPLATE_MAKEFILE="$TEMPLATE_DIR/$MAKEFILE_NAME"
 cp "$TEMPLATE_MAKEFILE" "$SHARNESS_LIB_DIR/" ||
 die "could not copy '$TEMPLATE_MAKEFILE' into '$SHARNESS_LIB_DIR/'"
 MAKEFILE_SCRIPT="$SHARNESS_LIB_DIR/$MAKEFILE_NAME"
