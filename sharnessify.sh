@@ -143,9 +143,9 @@ die "could not modify '$SIMPLE_TEST_DEST'"
 log "Simple test ($SIMPLE_TEST_DEST) created"
 
 # Copy Makefile
-cp "$TEMPLATE_MAKEFILE" "$SHARNESS_LIB_DIR/" ||
-die "could not copy '$TEMPLATE_MAKEFILE' into '$SHARNESS_LIB_DIR/'"
-MAKEFILE_SCRIPT="$SHARNESS_LIB_DIR/$MAKEFILE_NAME"
+cp "$TEMPLATE_MAKEFILE" "$SHARNESS_DIR/" ||
+die "could not copy '$TEMPLATE_MAKEFILE' into '$SHARNESS_DIR/'"
+MAKEFILE_SCRIPT="$SHARNESS_DIR/$MAKEFILE_NAME"
 log "MAKEFILE_SCRIPT ($MAKEFILE_SCRIPT) has been copied from '$TEMPLATE_DIR'"
 
 
