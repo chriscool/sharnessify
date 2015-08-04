@@ -148,8 +148,12 @@ die "could not copy '$TEMPLATE_MAKEFILE' into '$SHARNESS_DIR/'"
 MAKEFILE_SCRIPT="$SHARNESS_DIR/$MAKEFILE_NAME"
 log "MAKEFILE_SCRIPT ($MAKEFILE_SCRIPT) has been copied from '$TEMPLATE_DIR'"
 
-
-
+# Substitute variables in Makefile
+sed -i "s/XXX_SHARNESSIFY_LIB_XXX/$LIB_BASE_DIR/" "$MAKEFILE_SCRIPT" ||
+die "could not modify '$MAKEFILE_SCRIPT'"
+sed -i "s/XXX_SHARNESSIFY_SHARNESS_XXX/sharness/" "$MAKEFILE_SCRIPT" ||
+die "could not modify '$MAKEFILE_SCRIPT'"
+log "Variables substituted in '$MAKEFILE_SCRIPT'"
 
 # Cleanup temp directory
 rm -rf "$TMPDIR"
