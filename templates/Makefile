@@ -6,7 +6,10 @@
 # NOTE: run with TEST_VERBOSE=1 for verbose sharness tests.
 
 T = $(sort $(wildcard t[0-9][0-9][0-9][0-9]-*.sh))
-SHARNESS = lib/sharness/sharness.sh
+LIBDIR = XXX_SHARNESSIFY_LIB_XXX
+SHARNESSDIR = XXX_SHARNESSIFY_SHARNESS_XXX
+AGGREGATE = $(LIBDIR)/$(SHARNESSDIR)/aggregate-results.sh
+
 
 # Add below the binaries that this project generates or needs.
 # For example:
@@ -31,14 +34,14 @@ $(T): clean-test-results deps
 
 aggregate: clean-test-results $(T)
 	@echo "*** $@ ***"
-	ls test-results/t*-*.sh.*.counts | lib/sharness/aggregate-results.sh
+	ls test-results/t*-*.sh.*.counts | $(AGGREGATE)
 
 # Add below some needed dependencies.
 # For example:
-# deps: $(SHARNESS) $(BINS) curl
-deps: $(SHARNESS) $(BINS)
+# deps: sharness $(BINS) curl
+deps: sharness $(BINS)
 
-$(SHARNESS): FORCE
+sharness:
 	@echo "*** checking $@ ***"
 	lib/install-sharness.sh
 
@@ -49,6 +52,8 @@ $(SHARNESS): FORCE
 #
 # For example:
 #
+# GOFLAGS =
+#
 # bin/%: FORCE
 # 	cd .. && make GOFLAGS=$(GOFLAGS) $@
 #
@@ -58,5 +63,5 @@ $(SHARNESS): FORCE
 # curl:
 #	@which curl >/dev/null || (echo "Please install curl!" && false)
 
-.PHONY: all clean $(T) aggregate FORCE
+.PHONY: all clean clean-test-results $(T) aggregate deps sharness FORCE
 
