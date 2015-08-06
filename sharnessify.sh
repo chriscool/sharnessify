@@ -64,6 +64,7 @@ done
 # Setup PROJ_DIR properly
 test -n "$PROJ_DIR" || PROJ_DIR="."
 log "PROJ_DIR is set to '$PROJ_DIR'"
+test -d "$PROJ_DIR" || echo >&2 "warning: '$PROJ_DIR' will be created"
 
 # Get the directory that contains this script
 PARENT_DIR=$(cd "$(dirname "$0")" && pwd) ||
