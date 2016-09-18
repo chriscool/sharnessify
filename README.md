@@ -89,7 +89,7 @@ commit in the Sharness repository used to clone Sharness.
 
 By default the Sharness repository used to clone Sharness is the
 cannonical repository from GitHub
-(https://github.com/mlafeldt/sharness.git). But you can use a local
+(https://github.com/chriscool/sharness.git). But you can use a local
 repository instead by passing the `-l <local>`, or `--local <local>`,
 option to `sharnessify.sh`. If you do that then this `<local>`
 repository will also be used by `install-sharness.sh`, as it will be

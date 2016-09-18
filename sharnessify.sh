@@ -5,7 +5,7 @@
 #
 # Script to add sharness infrastructure to a project
 
-SHARNESS_URL="https://github.com/mlafeldt/sharness.git"
+SHARNESS_URL="https://github.com/chriscool/sharness.git"
 LIB_BASE_DIR="lib"
 SHARNESS_BASE_DIR="sharness"
 INSTALL_NAME="install-sharness.sh"
