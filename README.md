@@ -18,6 +18,30 @@ That's why the goal of this project is to make it easy to cleanly
 install Sharness support, so that Sharness files are separated from
 other files and can easily be installed and updated.
 
+## Usage
+
+Clone this repo to a temporary directory and run `sharnessify.sh` with the path
+to your project:
+
+```sh
+$ cd ~/dev/my-project
+
+$ git clone git://github.com/chriscool/sharnessify /tmp/sharnessify
+
+$ /tmp/sharnessify/sharnessify.sh .
+
+$ git status
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+  new file:   sharness/.gitignore
+  new file:   sharness/Makefile
+  new file:   sharness/lib/install-sharness.sh
+  new file:   sharness/t0000-sharness.sh
+```
+
+Now run `git commit` and your project is equipped with sharness!
+
 ## How it works
 
 The `sharnessify.sh` script adds a Sharness install and update script
