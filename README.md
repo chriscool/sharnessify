@@ -5,7 +5,7 @@ a project.
 
 ## Purpose and Goal
 
-[Sharness](https://github.com/mlafeldt/sharness/) is a great test
+[Sharness](https://github.com/chriscool/sharness/) is a great test
 framework written in Shell. It is actively developed and comes from
 Git itself.
 
