@@ -27,6 +27,7 @@ clean: clean-test-results
 clean-test-results:
 	@echo "*** $@ ***"
 	-rm -rf test-results
+	-rm -rf 'trash directory'.*.sh
 
 $(T): clean-test-results deps
 	@echo "*** $@ ***"
